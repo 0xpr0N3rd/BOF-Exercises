@@ -130,7 +130,7 @@ In our case, we see:
 EIP contains normal pattern : 0x6f43396e (offset 1978)
 ```
 
-###
+##
 
 **NOTE:** Another method to find the offset is using ``msf-pattern_offset``. We can do the following:
 
@@ -145,7 +145,7 @@ In our case:
 [*] Exact match at offset 1978
 ```
 
-###
+##
 
 Now we've found our offset value, which is ``1978``. This time, we need to update our ``offset`` value in our ``exploit.py`` file:
 
