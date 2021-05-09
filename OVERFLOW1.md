@@ -196,7 +196,7 @@ from __future__ import print_function
 list = "".split("\\x")
 
 for x in range(1, 256):
-  if "{:02x}.format(x) not in list:
+  if "{:02x}.format(x)" not in list:
     print("\\x" + "{:02x}".format(x), end='')
 print()
 ```
@@ -272,7 +272,7 @@ from __future__ import print function
 list = "\\0x7\\x2e\\xa0".split("\\x")
 
 for x in range(1, 256):
-  if "{:02x}".format(x) not in list:
+  if "{:02x}".format(x)" not in list:
     print("\\x" + "{:02x}".format(x), end='')
 
 print()
